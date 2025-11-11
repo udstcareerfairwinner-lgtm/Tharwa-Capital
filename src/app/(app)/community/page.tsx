@@ -5,6 +5,7 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
+  CardDescription,
 } from "@/components/ui/card";
 import { translations } from "@/lib/translations";
 import { Users, Award, ChevronRight, Shield } from "lucide-react";
