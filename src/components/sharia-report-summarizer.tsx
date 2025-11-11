@@ -9,7 +9,7 @@ import { summarizeReportAction } from "@/lib/actions";
 import { Skeleton } from "./ui/skeleton";
 
 interface ShariaReportSummarizerProps {
-  report: Record<string, string>;
+  report: Record<string, string> | undefined;
 }
 
 export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) {
@@ -19,6 +19,10 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
   const [error, setError] = useState("");
 
   const handleSummarize = async () => {
+    if (!report || !report[language]) {
+      setError("Report is not available.");
+      return;
+    }
     setIsLoading(true);
     setError("");
     setSummary("");
@@ -37,6 +41,12 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
     }
     setIsLoading(false);
   };
+
+  if (!report) {
+    return (
+        <p className="text-muted-foreground italic">No detailed compliance report available for this project.</p>
+    );
+  }
 
   return (
     <div className="space-y-4">

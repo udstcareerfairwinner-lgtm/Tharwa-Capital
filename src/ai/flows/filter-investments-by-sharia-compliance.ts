@@ -10,6 +10,7 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import { summarizeShariaComplianceReport } from './summarize-sharia-compliance-report';
 
 const InvestmentOpportunitySchema = z.object({
   id: z.number(),
@@ -54,12 +55,11 @@ const reviewComplianceReport = ai.defineTool({
   outputSchema: z.boolean().describe('Whether the investment is Sharia-compliant according to the report.'),
 },
 async (input) => {
-  // Placeholder implementation, replace with actual LLM call or other logic
-  // to determine Sharia compliance from the report.
-  console.log('reviewComplianceReport called with report:', input.report);
-  // In a real implementation, you would use an LLM or other service here.
-  // This example always returns true to indicate compliance.
-  return true;  // Replace with actual compliance check.
+  const { summary } = await summarizeShariaComplianceReport({ reportText: input.report });
+  // A simple check based on keywords in the summary.
+  // This can be improved with a more sophisticated LLM call.
+  const isCompliant = !summary.toLowerCase().includes('not compliant') && !summary.toLowerCase().includes('under review');
+  return isCompliant;
 }
 );
 

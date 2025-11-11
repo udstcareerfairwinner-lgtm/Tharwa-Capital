@@ -122,11 +122,7 @@ export default function InvestmentDetailPage({ params }: Props) {
                 </Badge>
             </CardHeader>
             <CardContent>
-                {investment.shariaComplianceReport ? (
-                    <ShariaReportSummarizer report={investment.shariaComplianceReport} />
-                ) : (
-                    <p className="text-muted-foreground italic">No detailed compliance report available for this project.</p>
-                )}
+                <ShariaReportSummarizer report={investment.shariaComplianceReport} />
             </CardContent>
         </Card>
 
