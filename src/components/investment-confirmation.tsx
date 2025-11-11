@@ -64,7 +64,7 @@ export function InvestmentConfirmation({
                 {text.confirmInvestment}
               </AlertDialogTitle>
               <AlertDialogDescription>
-                <p>{text.confirmInvestmentDesc.replace('{title}', investment.title[language])}</p>
+                {text.confirmInvestmentDesc.replace('{title}', investment.title[language])}
                 <ul className="mt-4 list-disc list-inside text-sm text-muted-foreground space-y-2">
                     <li>{text.nextStep1}</li>
                     <li>{text.nextStep2}</li>
