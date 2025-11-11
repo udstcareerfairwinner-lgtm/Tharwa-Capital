@@ -1,1 +1,5 @@
-// Flows will be imported for their side effects in this file.
+import { config } from 'dotenv';
+config();
+
+import '@/ai/flows/summarize-sharia-compliance-report.ts';
+import '@/ai/flows/filter-investments-by-sharia-compliance.ts';
