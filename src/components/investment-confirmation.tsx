@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -91,7 +92,7 @@ export function InvestmentConfirmation({
               <Button onClick={handleClose} variant="outline">{text.close}</Button>
               <Button asChild>
                 <a href="#" target="_blank" rel="noopener noreferrer">
-                    {text.openPaymentGateway} <ExternalLink className="ml-2"/>
+                    {text.openPaymentGateway} <ExternalLink className="ml-2 h-4 w-4"/>
                 </a>
               </Button>
             </AlertDialogFooter>
