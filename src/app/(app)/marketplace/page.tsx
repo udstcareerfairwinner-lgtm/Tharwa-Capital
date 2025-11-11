@@ -3,7 +3,7 @@ import { translations } from "@/lib/translations";
 import { investments } from "@/lib/data";
 import {
   Building,
-  SolarPanel,
+  Zap,
   Store,
   Wheat,
   Cpu,
@@ -21,7 +21,7 @@ export default function MarketplacePage() {
       label: text.realEstate,
     },
     {
-      icon: <SolarPanel size={24} className="text-accent" />,
+      icon: <Zap size={24} className="text-accent" />,
       label: text.renewable,
     },
     {

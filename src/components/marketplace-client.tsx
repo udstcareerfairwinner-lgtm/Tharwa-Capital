@@ -5,7 +5,7 @@ import { useLanguage } from "@/hooks/use-language";
 import { Investment } from "@/lib/data";
 import { InvestmentCard } from "./investment-card";
 import { Input } from "./ui/input";
-import { Search } from "lucide-react";
+import { Search, Zap } from "lucide-react";
 import { Card, CardContent } from "./ui/card";
 import { Switch } from "./ui/switch";
 import { Label } from "./ui/label";
