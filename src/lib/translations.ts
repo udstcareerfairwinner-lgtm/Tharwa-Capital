@@ -1,6 +1,6 @@
 export const translations = {
     en: {
-      appName: 'Barakah',
+      appName: 'Tharwa Capital',
       tagline: 'Invest with Faith, Grow with Purpose',
       getStarted: 'Get Started',
       skip: 'Skip',
@@ -62,7 +62,7 @@ export const translations = {
       of: 'of'
     },
     ar: {
-      appName: 'بركة',
+      appName: 'ثروة كابيتال',
       tagline: 'استثمر بإيمان، انمو بهدف',
       getStarted: 'ابدأ الآن',
       skip: 'تخطي',

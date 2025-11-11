@@ -5,7 +5,7 @@ import { LanguageProvider } from "@/context/language-context";
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: "Barakah Invest",
+  title: "Tharwa Capital",
   description: "Invest with Faith, Grow with Purpose",
 };
 

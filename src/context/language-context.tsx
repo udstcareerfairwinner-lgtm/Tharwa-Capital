@@ -18,7 +18,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguage] = useState<Language>('en');
   
   useEffect(() => {
-    const storedLang = localStorage.getItem('barakah-lang') as Language;
+    const storedLang = localStorage.getItem('tharwa-lang') as Language;
     if (storedLang && (storedLang === 'en' || storedLang === 'ar')) {
       setLanguage(storedLang);
     }
@@ -26,7 +26,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
   const handleSetLanguage = (lang: Language) => {
     setLanguage(lang);
-    localStorage.setItem('barakah-lang', lang);
+    localStorage.setItem('tharwa-lang', lang);
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
   };
