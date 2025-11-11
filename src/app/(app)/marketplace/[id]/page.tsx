@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   ShieldCheck,
   ShieldAlert,
@@ -24,6 +23,7 @@ import {
 import { IslamicPattern } from "@/components/islamic-pattern";
 import { ShariaReportSummarizer } from "@/components/sharia-report-summarizer";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { InvestmentConfirmation } from "@/components/investment-confirmation";
 
 type Props = {
   params: { id: string };
@@ -130,9 +130,7 @@ export default function InvestmentDetailPage({ params }: Props) {
             </CardContent>
         </Card>
 
-        <Button size="lg" className="w-full h-12 text-lg">
-            {text.investNow}
-        </Button>
+        <InvestmentConfirmation investment={investment} />
 
       </div>
     </div>

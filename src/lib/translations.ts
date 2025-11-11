@@ -59,7 +59,18 @@ export const translations = {
       viewProject: 'View Project',
       nonCompliant: 'Not Compliant',
       underReview: 'Under Review',
-      of: 'of'
+      of: 'of',
+      confirmInvestment: "Confirm Your Investment",
+      confirmInvestmentDesc: "You are about to proceed with an investment in '{title}'. Please note that this is a simulated transaction. In a real application, you would be redirected to a secure payment gateway to complete the following steps:",
+      nextStep1: "Specify the amount you wish to invest.",
+      nextStep2: "Complete Know Your Customer (KYC) verification.",
+      nextStep3: "Finalize payment through our secure gateway.",
+      cancel: "Cancel",
+      proceedToPayment: "Proceed",
+      paymentRedirectTitle: "Redirecting to Payment Gateway",
+      paymentRedirectDesc: "You will now be redirected to our secure payment partner to complete your investment. (This is a simulation).",
+      close: "Close",
+      openPaymentGateway: "Open Payment Gateway",
     },
     ar: {
       appName: 'ثروة كابيتال',
@@ -121,7 +132,18 @@ export const translations = {
       viewProject: 'عرض المشروع',
       nonCompliant: 'غير متوافق',
       underReview: 'قيد المراجعة',
-      of: 'من'
+      of: 'من',
+      confirmInvestment: "تأكيد استثمارك",
+      confirmInvestmentDesc: "أنت على وشك المتابعة في استثمار '{title}'. يرجى ملاحظة أن هذه معاملة محاكاة. في تطبيق حقيقي، سيتم توجيهك إلى بوابة دفع آمنة لإكمال الخطوات التالية:",
+      nextStep1: "حدد المبلغ الذي ترغب في استثماره.",
+      nextStep2: "أكمل التحقق من اعرف عميلك (KYC).",
+      nextStep3: "أتمم الدفع عبر بوابتنا الآمنة.",
+      cancel: "إلغاء",
+      proceedToPayment: "متابعة",
+      paymentRedirectTitle: "إعادة التوجيه إلى بوابة الدفع",
+      paymentRedirectDesc: "سيتم الآن إعادة توجيهك إلى شريك الدفع الآمن لدينا لإكمال استثمارك. (هذه محاكاة).",
+      close: "إغلاق",
+      openPaymentGateway: "فتح بوابة الدفع",
     }
 };
 

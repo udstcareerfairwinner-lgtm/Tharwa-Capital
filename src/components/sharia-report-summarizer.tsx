@@ -26,7 +26,11 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
       const result = await summarizeReportAction({
         reportText: report[language],
       });
-      setSummary(result);
+      if (result.startsWith("Error:")) {
+        setError(result);
+      } else {
+        setSummary(result);
+      }
     } catch (e) {
       setError("Failed to generate summary.");
       console.error(e);
