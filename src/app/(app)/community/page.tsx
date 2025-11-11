@@ -1,41 +1,20 @@
 import Image from "next/image";
+import Link from "next/link";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { translations } from "@/lib/translations";
 import { Users, Award, ChevronRight, Shield } from "lucide-react";
 import { IslamicPattern } from "@/components/islamic-pattern";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { shariaBoard } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 
 export default function CommunityPage() {
   const lang = "en"; // Defaulting to English for this server component
   const text = translations[lang];
-
-  const shariaBoard = [
-    {
-      name: "Dr. Ahmed Al-Qaradawi",
-      role: text.chiefShariaOfficer,
-      image: PlaceHolderImages.find((img) => img.id === "sharia-board-1")?.imageUrl || "",
-      imageHint: "man portrait",
-    },
-    {
-      name: "Sheikh Mohammed Al-Thani",
-      role: text.islamicFinanceExpert,
-      image: PlaceHolderImages.find((img) => img.id === "sharia-board-2")?.imageUrl || "",
-      imageHint: "man portrait",
-    },
-    {
-      name: "Dr. Fatima Al-Dosari",
-      role: text.shariaComplianceSpecialist,
-      image: PlaceHolderImages.find((img) => img.id === "sharia-board-3")?.imageUrl || "",
-      imageHint: "woman portrait",
-    },
-  ];
 
   return (
     <div>
@@ -72,8 +51,8 @@ export default function CommunityPage() {
         <Card className="bg-card">
           <CardHeader>
             <div className="flex items-center gap-3 mb-2">
-                <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center">
-                    <Shield className="w-6 h-6 text-accent" />
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <Shield className="w-6 h-6 text-primary" />
                 </div>
                  <div>
                     <h2 className="text-lg font-bold font-headline text-foreground">{text.shariaBoard}</h2>
@@ -82,22 +61,24 @@ export default function CommunityPage() {
             </div>
           </CardHeader>
           <CardContent className="space-y-3">
-            {shariaBoard.map((member, idx) => (
-              <div key={idx} className="flex items-center gap-3 p-3 bg-background rounded-lg border hover:bg-muted/50 transition-colors cursor-pointer">
-                <Image
-                  src={member.image}
-                  alt={member.name}
-                  width={48}
-                  height={48}
-                  className="rounded-full"
-                  data-ai-hint={member.imageHint}
-                />
-                <div className="flex-1">
-                  <h3 className="font-semibold text-foreground">{member.name}</h3>
-                  <p className="text-sm text-muted-foreground">{member.role}</p>
+            {shariaBoard.map((member) => (
+              <Link href={`/community/board/${member.id}`} key={member.id} className="block">
+                <div className="flex items-center gap-3 p-3 bg-background rounded-lg border hover:bg-muted/50 transition-colors cursor-pointer">
+                  <Image
+                    src={member.image}
+                    alt={member.name[lang]}
+                    width={48}
+                    height={48}
+                    className="rounded-full"
+                    data-ai-hint={member.imageHint}
+                  />
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-foreground">{member.name[lang]}</h3>
+                    <p className="text-sm text-muted-foreground">{member.role[lang]}</p>
+                  </div>
+                  <ChevronRight className="h-5 w-5 text-muted-foreground" />
                 </div>
-                <ChevronRight className="h-5 w-5 text-muted-foreground" />
-              </div>
+              </Link>
             ))}
              <Button className="w-full mt-4" variant="outline">
                 {text.learnMore}

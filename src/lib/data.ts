@@ -1,9 +1,11 @@
 import { PlaceHolderImages } from './placeholder-images';
 
-export type Investment = {
+export type LocalizedString = Record<string, string>;
+
+export interface Investment {
   id: number;
-  title: Record<string, string>;
-  category: Record<string, string>;
+  title: LocalizedString;
+  category: LocalizedString;
   image: string;
   invested: number;
   goal: number;
@@ -12,11 +14,69 @@ export type Investment = {
   minInvest: string;
   daysLeft: number;
   sharia: boolean;
-  shariaComplianceReport?: Record<string, string>;
+  shariaComplianceReport?: LocalizedString;
 };
 
+export interface ShariaBoardMember {
+    id: string;
+    name: LocalizedString;
+    role: LocalizedString;
+    image: string;
+    imageHint: string;
+    expertise: LocalizedString[];
+    bio: LocalizedString;
+}
+
 const getImage = (id: string) => PlaceHolderImages.find(img => img.id === id)?.imageUrl ?? '';
-const getImageHint = (id: string) => PlaceHolderImages.find(img => img.id === id)?.imageHint ?? '';
+
+export const shariaBoard: ShariaBoardMember[] = [
+    {
+      id: "dr-ahmed-al-qaradawi",
+      name: { en: "Dr. Ahmed Al-Qaradawi", ar: "د. أحمد القرضاوي" },
+      role: { en: "Chief Sharia Officer", ar: "كبير المسؤولين الشرعيين" },
+      image: getImage("sharia-board-1"),
+      imageHint: "man portrait",
+      expertise: [
+          {en: "Fiqh al-Muamalat", ar: "فقه المعاملات"},
+          {en: "Islamic Economics", ar: "الاقتصاد الإسلامي"},
+          {en: "Sukuk Structuring", ar: "هيكلة الصكوك"},
+      ],
+      bio: {
+          en: "Dr. Ahmed Al-Qaradawi is a leading authority in Islamic finance, with over 25 years of experience. He holds a Ph.D. in Islamic Law from Al-Azhar University and has published numerous papers on contemporary financial issues from an Islamic perspective. He ensures that all investments on the Tharwa Capital platform adhere strictly to Sharia principles, providing peace of mind for our investors.",
+          ar: "الدكتور أحمد القرضاوي هو مرجعية رائدة في التمويل الإسلامي، بخبرة تزيد عن 25 عامًا. حاصل على درجة الدكتوراه في الشريعة الإسلامية من جامعة الأزهر ونشر العديد من الأبحاث حول القضايا المالية المعاصرة من منظور إسلامي. يضمن أن جميع الاستثمارات على منصة ثروة كابيتال تلتزم بصرامة بمبادئ الشريعة، مما يوفر راحة البال لمستثمرينا."
+      }
+    },
+    {
+        id: "sheikh-mohammed-al-thani",
+        name: { en: "Sheikh Mohammed Al-Thani", ar: "الشيخ محمد آل ثاني" },
+        role: { en: "Islamic Finance Expert", ar: "خبير التمويل الإسلامي" },
+        image: getImage("sharia-board-2"),
+        imageHint: "man portrait",
+        expertise: [
+            {en: "Takaful", ar: "التكافل"},
+            {en: "Islamic Capital Markets", ar: "أسواق رأس المال الإسلامية"},
+        ],
+        bio: {
+            en: "Sheikh Mohammed Al-Thani is a renowned expert in Islamic capital markets and Takaful (Islamic insurance). His practical experience in structuring and auditing Islamic financial products makes him an invaluable asset to our board. He is dedicated to fostering innovation in finance that is both ethical and compliant.",
+            ar: "الشيخ محمد آل ثاني خبير مرموق في أسواق رأس المال الإسلامية والتكافل (التأمين الإسلامي). خبرته العملية في هيكلة ومراجعة المنتجات المالية الإسلامية تجعله رصيدًا لا يقدر بثمن لمجلسنا. وهو مكرس لتعزيز الابتكار في التمويل الأخلاقي والمتوافق مع الشريعة."
+        }
+      },
+      {
+        id: "dr-fatima-al-dosari",
+        name: { en: "Dr. Fatima Al-Dosari", ar: "د. فاطمة الدوسري" },
+        role: { en: "Sharia Compliance Specialist", ar: "أخصائية الامتثال الشرعي" },
+        image: getImage("sharia-board-3"),
+        imageHint: "woman portrait",
+        expertise: [
+            {en: "Halal Startups", ar: "الشركات الناشئة الحلال"},
+            {en: "Socially Responsible Investing", ar: "الاستثمار المسؤول اجتماعيا"},
+        ],
+        bio: {
+            en: "Dr. Fatima Al-Dosari specializes in the intersection of Islamic finance and modern entrepreneurship. She focuses on ensuring that startups and small businesses seeking funding are not only financially viable but also operate on a foundation of Islamic ethics. Her work helps empower a new generation of Muslim entrepreneurs.",
+            ar: "تتخصص الدكتورة فاطمة الدوسري في تقاطع التمويل الإسلامي وريادة الأعمال الحديثة. تركز على ضمان أن الشركات الناشئة والشركات الصغيرة التي تسعى للحصول على تمويل ليست فقط قابلة للحياة من الناحية المالية ولكنها تعمل أيضًا على أساس الأخلاق الإسلامية. يساعد عملها في تمكين جيل جديد من رواد الأعمال المسلمين."
+        }
+      },
+];
 
 
 export const investments: Investment[] = [
