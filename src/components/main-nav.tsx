@@ -28,14 +28,12 @@ export function MainNav() {
   }) => {
     const isActive = pathname.startsWith(href);
     return (
-      <Link href={href} legacyBehavior>
-        <a className={cn(
-          "flex flex-col items-center gap-1 transition-colors",
-          isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
-        )}>
-          <Icon size={24} />
-          <span className="text-xs font-medium">{label}</span>
-        </a>
+      <Link href={href} className={cn(
+        "flex flex-col items-center gap-1 transition-colors",
+        isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
+      )}>
+        <Icon size={24} />
+        <span className="text-xs font-medium">{label}</span>
       </Link>
     );
   };

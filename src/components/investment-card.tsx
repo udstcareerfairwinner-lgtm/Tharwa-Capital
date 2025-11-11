@@ -23,8 +23,7 @@ export function InvestmentCard({ investment }: InvestmentCardProps) {
 
   return (
     <Card className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
-      <Link href={`/marketplace/${investment.id}`} passHref legacyBehavior>
-        <a>
+      <Link href={`/marketplace/${investment.id}`} className="block">
           <div className="relative">
             <Image
               src={investment.image}
@@ -83,7 +82,6 @@ export function InvestmentCard({ investment }: InvestmentCardProps) {
               {text.viewProject}
             </Button>
           </CardContent>
-        </a>
       </Link>
     </Card>
   );
