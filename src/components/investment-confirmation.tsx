@@ -63,13 +63,15 @@ export function InvestmentConfirmation({
               <AlertDialogTitle>
                 {text.confirmInvestment}
               </AlertDialogTitle>
-              <AlertDialogDescription>
-                {text.confirmInvestmentDesc.replace('{title}', investment.title[language])}
-                <ul className="mt-4 list-disc list-inside text-sm text-muted-foreground space-y-2">
-                    <li>{text.nextStep1}</li>
-                    <li>{text.nextStep2}</li>
-                    <li>{text.nextStep3}</li>
-                </ul>
+              <AlertDialogDescription asChild>
+                <div>
+                  {text.confirmInvestmentDesc.replace('{title}', investment.title[language])}
+                  <ul className="mt-4 list-disc list-inside text-sm text-muted-foreground space-y-2">
+                      <li>{text.nextStep1}</li>
+                      <li>{text.nextStep2}</li>
+                      <li>{text.nextStep3}</li>
+                  </ul>
+                </div>
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
