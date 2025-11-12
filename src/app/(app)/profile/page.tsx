@@ -98,10 +98,18 @@ export default function ProfilePage() {
                 <CardTitle className="font-headline">Account Settings</CardTitle>
             </CardHeader>
             <CardContent>
-                <div className="flex flex-col space-y-2">
-                    <Button variant="ghost" className="justify-start"><UserCog className="mr-2"/> Edit Profile</Button>
-                    <Button variant="ghost" className="justify-start"><Bell className="mr-2"/> Notification Settings</Button>
-                    <Button variant="ghost" className="justify-start text-destructive hover:text-destructive"><LogOut className="mr-2"/> Log Out</Button>
+                <div className="flex flex-col space-y-1">
+                    <Button variant="ghost" className="justify-start -ml-4" asChild>
+                        <Link href="/profile/edit">
+                            <UserCog className="mr-2"/> Edit Profile
+                        </Link>
+                    </Button>
+                    <Button variant="ghost" className="justify-start -ml-4" asChild>
+                       <Link href="/profile/notifications">
+                            <Bell className="mr-2"/> Notification Settings
+                        </Link>
+                    </Button>
+                    <Button variant="ghost" className="justify-start text-destructive hover:text-destructive -ml-4"><LogOut className="mr-2"/> Log Out</Button>
                 </div>
             </CardContent>
         </Card>
