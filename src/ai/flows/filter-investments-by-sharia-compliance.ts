@@ -46,55 +46,31 @@ export async function filterInvestmentsByShariaCompliance(
   return filterInvestmentsFlow(input);
 }
 
-const reviewComplianceReport = ai.defineTool({
-  name: 'reviewComplianceReport',
-  description: 'Reviews a Sharia compliance report and returns whether the investment is Sharia-compliant.',
-  inputSchema: z.object({
-    report: z.string().describe('The Sharia compliance report to review.'),
-  }),
-  outputSchema: z.boolean().describe('Whether the investment is Sharia-compliant according to the report.'),
-},
-async (input) => {
-  if (!input.report) {
-    return true; // Assume compliant if no report is provided to the tool
-  }
-  
-  const { text } = await ai.generate({
-    prompt: `You are a Sharia compliance expert. Analyze the following report and determine if the investment is Sharia-compliant. Respond with only "true" if it is compliant or "false" if it is not. Report: ${input.report}`,
-    config: {
-      temperature: 0,
+const reviewComplianceReport = ai.defineTool(
+  {
+    name: 'reviewComplianceReport',
+    description: 'Reviews a Sharia compliance report and returns whether the investment is Sharia-compliant.',
+    inputSchema: z.object({
+      report: z.string().describe('The Sharia compliance report to review.'),
+    }),
+    outputSchema: z.boolean().describe('Whether the investment is Sharia-compliant according to the report.'),
+  },
+  async (input) => {
+    if (!input.report) {
+      return true; // Assume compliant if no report is provided to the tool
     }
-  });
+    
+    const { text } = await ai.generate({
+      prompt: `You are a Sharia compliance expert. Analyze the following report and determine if the investment is Sharia-compliant. Respond with only "true" if it is compliant or "false" if it is not. Report: ${input.report}`,
+      config: {
+        temperature: 0,
+      }
+    });
 
-  return text.toLowerCase().trim() === 'true';
-}
+    return text.toLowerCase().trim() === 'true';
+  }
 );
 
-const filterInvestmentsPrompt = ai.definePrompt({
-  name: 'filterInvestmentsPrompt',
-  tools: [reviewComplianceReport],
-  input: {schema: FilterInvestmentsInputSchema},
-  output: {schema: FilterInvestmentsOutputSchema},
-  prompt: `You are an expert in filtering investment opportunities based on Sharia compliance.
-
-You are given a list of investment opportunities and a flag indicating whether to filter for only Sharia-compliant investments.
-
-If the flag is true, you should:
-1.  For each investment opportunity that has a shariaComplianceReport, use the reviewComplianceReport tool to determine if it is Sharia-compliant. If a report is not available, assume the investment is compliant if its 'sharia' field is true.
-2.  Return only the Sharia-compliant investment opportunities.
-
-If the flag is false, return all investment opportunities.
-
-Here are the investment opportunities:
-{{#each investments}}
-  - Title: {{this.title}}, Category: {{this.category}}, Sharia: {{this.sharia}}, Compliance Report: {{this.shariaComplianceReport}}
-{{/each}}
-
-Sharia Compliant Only: {{shariaCompliantOnly}}
-
-Output: An array of investment opportunities that meet the criteria.
-`,
-});
 
 const filterInvestmentsFlow = ai.defineFlow(
   {
