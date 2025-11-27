@@ -1,3 +1,4 @@
+
 'use server';
 
 /**
@@ -100,22 +101,7 @@ const filterInvestmentsFlow = ai.defineFlow(
       return input.investments;
     }
 
-    const compliantInvestments: InvestmentOpportunity[] = [];
-
-    for (const investment of input.investments) {
-      if (investment.shariaComplianceReport) {
-        //Using the tool to determine Sharia compliance
-        const isCompliant = await reviewComplianceReport({report: investment.shariaComplianceReport});
-        if (isCompliant) {
-          compliantInvestments.push(investment);
-        }
-      } else if (investment.sharia) {
-        // If no report, and sharia is true, assume compliant.
-        compliantInvestments.push(investment);
-      }
-    }
-
-    //Returning the filtered list of compliant investments
-    return compliantInvestments;
+    const { output } = await filterInvestmentsPrompt(input);
+    return output || [];
   }
 );

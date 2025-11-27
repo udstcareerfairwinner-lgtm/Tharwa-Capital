@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, useMemo, ReactNode } from "react";
@@ -11,6 +12,7 @@ import { Switch } from "./ui/switch";
 import { Label } from "./ui/label";
 import { filterInvestmentsAction } from "@/lib/actions";
 import { Skeleton } from "./ui/skeleton";
+import type { InvestmentOpportunity } from "@/ai/flows/filter-investments-by-sharia-compliance";
 
 interface MarketplaceClientProps {
   initialInvestments: Investment[];
@@ -29,7 +31,7 @@ export function MarketplaceClient({ initialInvestments, categories: serverCatego
     setShariaOnly(checked);
     setIsLoading(true);
 
-    const formattedInvestments = initialInvestments.map(inv => ({
+    const formattedInvestments: InvestmentOpportunity[] = initialInvestments.map(inv => ({
       ...inv,
       title: inv.title[language],
       category: inv.category[language],
@@ -54,6 +56,11 @@ export function MarketplaceClient({ initialInvestments, categories: serverCatego
       setIsLoading(false);
     }
   };
+  
+  useEffect(() => {
+    handleShariaToggle(shariaOnly);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialInvestments, language]);
 
   const filteredInvestments = useMemo(() => {
     return displayedInvestments.filter(investment => {
