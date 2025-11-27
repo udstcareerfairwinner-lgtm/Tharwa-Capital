@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -102,7 +101,7 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
               <Sparkles size={16} className="text-accent animate-pulse"/>
               {text.summary}
             </CardTitle>
-          </Header>
+          </CardHeader>
           <CardContent className="space-y-2">
             <Skeleton className="h-4 w-full" />
             <Skeleton className="h-4 w-full" />
@@ -118,7 +117,7 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
               <Sparkles size={16} className="text-accent"/>
               {text.summary}
             </CardTitle>
-          </Header>
+          </CardHeader>
           <CardContent>
             <p className="text-sm whitespace-pre-wrap">{summary}</p>
           </CardContent>
