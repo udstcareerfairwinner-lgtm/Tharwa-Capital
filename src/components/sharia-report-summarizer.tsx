@@ -24,7 +24,7 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
     setSummary("");
     setError("");
 
-    const reportText = report?.['en'];
+    const reportText = report?.['en']; // Always use the English report for the AI
 
     if (!reportText) {
       setError("Compliance report is not available for this project.");
@@ -52,34 +52,34 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
   const hasReport = report && Object.values(report).some(r => r && r.length > 0);
   const reportTextForDisplay = report?.[language] || report?.['en'];
 
-  if (!hasReport) {
-    return (
-        <p className="text-muted-foreground italic">No detailed compliance report available for this project.</p>
-    );
-  }
-
   return (
     <div className="space-y-4">
-      {reportTextForDisplay && (
-        <Card className="bg-background/50">
-          <CardHeader>
-            <CardTitle className="text-base flex items-center gap-2">
-              <FileText size={16} />
-              Full Report
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground text-sm whitespace-pre-wrap">
-              {reportTextForDisplay}
-            </p>
-          </CardContent>
-        </Card>
-      )}
+       {!hasReport ? (
+        <p className="text-muted-foreground italic">No detailed compliance report available for this project.</p>
+       ) : (
+        <>
+            {reportTextForDisplay && (
+                <Card className="bg-background/50">
+                <CardHeader>
+                    <CardTitle className="text-base flex items-center gap-2">
+                    <FileText size={16} />
+                    Full Report
+                    </CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <p className="text-muted-foreground text-sm whitespace-pre-wrap">
+                    {reportTextForDisplay}
+                    </p>
+                </CardContent>
+                </Card>
+            )}
 
-      <Button onClick={handleSummarize} disabled={isLoading} className="w-full gap-2">
-        <Sparkles size={16} />
-        {isLoading ? text.generatingSummary : text.summarizeWithAI}
-      </Button>
+            <Button onClick={handleSummarize} disabled={isLoading} className="w-full gap-2">
+                <Sparkles size={16} />
+                {isLoading ? text.generatingSummary : text.summarizeWithAI}
+            </Button>
+        </>
+       )}
 
       {isLoading && (
         <Card>
