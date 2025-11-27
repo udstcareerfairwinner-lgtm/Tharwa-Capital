@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -23,16 +22,14 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
     setSummary("");
     setError("");
     setIsLoading(true);
-
-    const reportText = report?.[language] || report?.['en'];
-
-    if (!reportText) {
-      setError("Compliance report is not available for this project.");
-      setIsLoading(false);
-      return;
-    }
-
     try {
+      const reportText = report?.[language] || report?.['en'];
+
+      if (!reportText) {
+        setError("Compliance report is not available for this project.");
+        return;
+      }
+
       const result = await summarizeReportAction({ reportText });
       if (result.error) {
         setError(result.error);
