@@ -11,7 +11,6 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
-import { summarizeShariaComplianceReport } from './summarize-sharia-compliance-report';
 
 const InvestmentOpportunitySchema = z.object({
   id: z.number(),
@@ -56,11 +55,18 @@ const reviewComplianceReport = ai.defineTool({
   outputSchema: z.boolean().describe('Whether the investment is Sharia-compliant according to the report.'),
 },
 async (input) => {
-  const { summary } = await summarizeShariaComplianceReport({ reportText: input.report });
-  // A simple check based on keywords in the summary.
-  // This can be improved with a more sophisticated LLM call.
-  const isCompliant = !summary.toLowerCase().includes('not compliant') && !summary.toLowerCase().includes('under review');
-  return isCompliant;
+  if (!input.report) {
+    return true; // Assume compliant if no report is provided to the tool
+  }
+  
+  const { text } = await ai.generate({
+    prompt: `You are a Sharia compliance expert. Analyze the following report and determine if the investment is Sharia-compliant. Respond with only "true" if it is compliant or "false" if it is not. Report: ${input.report}`,
+    config: {
+      temperature: 0,
+    }
+  });
+
+  return text.toLowerCase().trim() === 'true';
 }
 );
 
@@ -74,7 +80,7 @@ const filterInvestmentsPrompt = ai.definePrompt({
 You are given a list of investment opportunities and a flag indicating whether to filter for only Sharia-compliant investments.
 
 If the flag is true, you should:
-1.  For each investment opportunity that has a shariaComplianceReport, use the reviewComplianceReport tool to determine if it is Sharia-compliant. If report is not available, assume investment is compliant if sharia field is true.
+1.  For each investment opportunity that has a shariaComplianceReport, use the reviewComplianceReport tool to determine if it is Sharia-compliant. If a report is not available, assume the investment is compliant if its 'sharia' field is true.
 2.  Return only the Sharia-compliant investment opportunities.
 
 If the flag is false, return all investment opportunities.
@@ -101,7 +107,25 @@ const filterInvestmentsFlow = ai.defineFlow(
       return input.investments;
     }
 
-    const { output } = await filterInvestmentsPrompt(input);
-    return output || [];
+    const compliantInvestments: InvestmentOpportunity[] = [];
+
+    for (const investment of input.investments) {
+        if (!investment.sharia) {
+            continue; // Skip non-sharia investments immediately if the base flag is false
+        }
+        
+        let isCompliant = investment.sharia; // Default to the sharia flag
+
+        if (investment.shariaComplianceReport) {
+            // If there's a report, the tool's verdict is the source of truth.
+            isCompliant = await reviewComplianceReport({ report: investment.shariaComplianceReport });
+        }
+        
+        if (isCompliant) {
+            compliantInvestments.push(investment);
+        }
+    }
+
+    return compliantInvestments;
   }
 );
