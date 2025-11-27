@@ -20,17 +20,17 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
   const [error, setError] = useState("");
 
   const handleSummarize = async () => {
-    setIsLoading(true);
-    setSummary("");
-    setError("");
-
+    // Always get the English report for the AI
     const reportText = report?.['en'];
 
     if (!reportText) {
       setError("Compliance report is not available for this project.");
-      setIsLoading(false);
       return;
     }
+    
+    setIsLoading(true);
+    setSummary("");
+    setError("");
 
     try {
       const result = await summarizeReportAction({ reportText });
@@ -42,14 +42,15 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
         setError("Failed to get a summary.");
       }
     } catch (e) {
-      setError("An unexpected error occurred while generating the summary.");
       console.error(e);
+      setError("An unexpected error occurred while generating the summary.");
     } finally {
       setIsLoading(false);
     }
   };
 
   const hasReport = report && report['en'] && report['en'].length > 0;
+  // Show translated report if available, otherwise fall back to English
   const reportTextForDisplay = report?.[language] || report?.['en'];
 
   return (
