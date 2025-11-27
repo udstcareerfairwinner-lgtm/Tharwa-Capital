@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -20,17 +19,17 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
   const [error, setError] = useState("");
 
   const handleSummarize = async () => {
-    // Determine which report text to use. Prioritize current language, fallback to 'en'.
+    setSummary("");
+    setError("");
+    setIsLoading(true);
+
     const reportText = report?.[language] || report?.['en'];
 
     if (!reportText) {
       setError("Compliance report is not available for this project.");
+      setIsLoading(false);
       return;
     }
-    
-    setIsLoading(true);
-    setError("");
-    setSummary("");
 
     try {
       const result = await summarizeReportAction({ reportText });
@@ -48,7 +47,7 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
       setIsLoading(false);
     }
   };
-
+  
   const hasReport = report && Object.values(report).some(r => r && r.length > 0);
   const reportTextForDisplay = report?.[language] || report?.['en'];
 
