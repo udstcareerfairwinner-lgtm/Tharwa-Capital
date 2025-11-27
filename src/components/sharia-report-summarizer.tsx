@@ -20,20 +20,20 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
   const [error, setError] = useState("");
 
   const handleSummarize = async () => {
+    setIsLoading(true);
     setSummary("");
     setError("");
-    setIsLoading(true);
+
+    const reportText = report?.['en'];
+
+    if (!reportText) {
+      setError("Compliance report is not available for this project.");
+      setIsLoading(false);
+      return;
+    }
 
     try {
-      const reportText = report?.[language] || report?.['en'];
-
-      if (!reportText) {
-        setError("Compliance report is not available for this project.");
-        return;
-      }
-
       const result = await summarizeReportAction({ reportText });
-
       if (result.error) {
         setError(result.error);
       } else if (result.summary) {
