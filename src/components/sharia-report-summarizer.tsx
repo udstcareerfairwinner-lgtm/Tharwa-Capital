@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -18,9 +19,11 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const reportText = report?.[language];
+
   const handleSummarize = async () => {
-    if (!report || !report[language]) {
-      setError("Report is not available.");
+    if (!reportText) {
+      setError("Report is not available in the current language.");
       return;
     }
     setIsLoading(true);
@@ -28,7 +31,7 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
     setSummary("");
     try {
       const result = await summarizeReportAction({
-        reportText: report[language],
+        reportText: reportText,
       });
       if (result.error) {
         setError(result.error);
@@ -64,7 +67,7 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
         </CardContent>
       </Card>
 
-      <Button onClick={handleSummarize} disabled={isLoading} className="w-full gap-2">
+      <Button onClick={handleSummarize} disabled={isLoading || !reportText} className="w-full gap-2">
         <Sparkles size={16} />
         {isLoading ? text.generatingSummary : text.summarizeWithAI}
       </Button>
