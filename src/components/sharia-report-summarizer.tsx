@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -19,17 +20,17 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
   const [error, setError] = useState("");
 
   const handleSummarize = async () => {
-    // Always get the English report for the AI
+    setIsLoading(true);
+    setSummary("");
+    setError("");
+
     const reportText = report?.['en'];
 
     if (!reportText) {
       setError("Compliance report is not available for this project.");
+      setIsLoading(false);
       return;
     }
-    
-    setIsLoading(true);
-    setSummary("");
-    setError("");
 
     try {
       const result = await summarizeReportAction({ reportText });
@@ -41,22 +42,21 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
         setError("Failed to get a summary.");
       }
     } catch (e) {
-      console.error(e);
       setError("An unexpected error occurred while generating the summary.");
+      console.error(e);
     } finally {
-      setIsLoading(false); // This is critical and was missing/faulty before.
+      setIsLoading(false);
     }
   };
-
-  const hasReport = report && report['en'] && report['en'].length > 0;
-  // Show translated report if available, otherwise fall back to English
+  
+  const hasReport = report && Object.values(report).some(r => r && r.length > 0);
   const reportTextForDisplay = report?.[language] || report?.['en'];
 
   return (
     <div className="space-y-4">
-       {!hasReport ? (
+      {!hasReport ? (
         <p className="text-muted-foreground italic">No detailed compliance report available for this project.</p>
-       ) : (
+      ) : (
         <>
           {reportTextForDisplay && (
             <Card className="bg-background/50">
@@ -73,19 +73,23 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
               </CardContent>
             </Card>
           )}
-
-          <Button onClick={handleSummarize} disabled={isLoading} className="w-full gap-2">
-            <Sparkles size={16} />
-            {isLoading ? text.generatingSummary : text.summarizeWithAI}
-          </Button>
         </>
       )}
+
+      <Button 
+        onClick={handleSummarize} 
+        disabled={isLoading || !hasReport} 
+        className="w-full gap-2"
+      >
+        <Sparkles size={16} />
+        {isLoading ? text.generatingSummary : text.summarizeWithAI}
+      </Button>
 
       {isLoading && (
         <Card>
           <CardHeader>
             <CardTitle className="text-base flex items-center gap-2 font-headline">
-              <Sparkles size={16} className="text-accent animate-pulse" />
+              <Sparkles size={16} className="text-accent animate-pulse"/>
               {text.summary}
             </CardTitle>
           </CardHeader>
@@ -101,7 +105,7 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
         <Card className="border-accent">
           <CardHeader>
             <CardTitle className="text-base flex items-center gap-2 font-headline">
-              <Sparkles size={16} className="text-accent" />
+              <Sparkles size={16} className="text-accent"/>
               {text.summary}
             </CardTitle>
           </CardHeader>
