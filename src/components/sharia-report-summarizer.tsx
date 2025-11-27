@@ -19,9 +19,8 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const reportText = report?.[language];
-
   const handleSummarize = async () => {
+    const reportText = report?.[language];
     if (!reportText) {
       setError("Report is not available in the current language.");
       return;
@@ -51,23 +50,27 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
     );
   }
 
+  const reportTextForDisplay = report[language];
+
   return (
     <div className="space-y-4">
-      <Card className="bg-background/50">
-        <CardHeader>
-          <CardTitle className="text-base flex items-center gap-2">
-            <FileText size={16} />
-            Full Report
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-muted-foreground text-sm whitespace-pre-wrap">
-            {report[language]}
-          </p>
-        </CardContent>
-      </Card>
+      {reportTextForDisplay && (
+        <Card className="bg-background/50">
+          <CardHeader>
+            <CardTitle className="text-base flex items-center gap-2">
+              <FileText size={16} />
+              Full Report
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-muted-foreground text-sm whitespace-pre-wrap">
+              {reportTextForDisplay}
+            </p>
+          </CardContent>
+        </Card>
+      )}
 
-      <Button onClick={handleSummarize} disabled={isLoading || !reportText} className="w-full gap-2">
+      <Button onClick={handleSummarize} disabled={isLoading} className="w-full gap-2">
         <Sparkles size={16} />
         {isLoading ? text.generatingSummary : text.summarizeWithAI}
       </Button>
