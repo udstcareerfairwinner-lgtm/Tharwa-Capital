@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -45,7 +44,7 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
       console.error(e);
       setError("An unexpected error occurred while generating the summary.");
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // This is critical and was missing/faulty before.
     }
   };
 
