@@ -20,37 +20,42 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
   const [error, setError] = useState("");
 
   const handleSummarize = async () => {
-    const reportText = report?.[language];
+    const reportText = report?.[language] || report?.['en'];
+
     if (!reportText) {
-      setError("Report is not available in the current language.");
+      setError("Compliance report is not available for this project.");
       return;
     }
+    
     setIsLoading(true);
     setError("");
     setSummary("");
+
     try {
-      const result = await summarizeReportAction({
-        reportText: reportText,
-      });
+      const result = await summarizeReportAction({ reportText });
       if (result.error) {
         setError(result.error);
       } else if (result.summary) {
         setSummary(result.summary);
       }
     } catch (e) {
-      setError("Failed to generate summary.");
+      setError("An unexpected error occurred while generating the summary.");
       console.error(e);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
-  if (!report) {
+  const hasReport = report && Object.values(report).some(r => r);
+
+  if (!hasReport) {
     return (
         <p className="text-muted-foreground italic">No detailed compliance report available for this project.</p>
     );
   }
 
-  const reportTextForDisplay = report[language];
+  // Show the report for the current language if it exists
+  const reportTextForDisplay = report?.[language];
 
   return (
     <div className="space-y-4">
@@ -98,14 +103,14 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
                 <Sparkles size={16} className="text-accent"/>
                 {text.summary}
             </CardTitle>
-          </CardHeader>
+          </Header>
           <CardContent>
             <p className="text-sm whitespace-pre-wrap">{summary}</p>
           </CardContent>
         </Card>
       )}
 
-      {error && <p className="text-sm text-destructive">{error}</p>}
+      {error && <p className="text-sm text-destructive text-center mt-2">{error}</p>}
     </div>
   );
 }
