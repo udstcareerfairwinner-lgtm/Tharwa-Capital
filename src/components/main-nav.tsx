@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -29,7 +30,7 @@ export function MainNav() {
     const isActive = pathname.startsWith(href);
     return (
       <Link href={href} className={cn(
-        "flex flex-col items-center gap-1 transition-colors",
+        "flex flex-col items-center justify-center gap-1 transition-colors w-16",
         isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
       )}>
         <Icon size={24} />
@@ -41,11 +42,11 @@ export function MainNav() {
   const navLinks = navItems.map(item => <NavLink key={item.href} {...item} />);
   // Insert placeholder for the Plus button
   navLinks.splice(2, 0, 
-    <div key="plus-button" className="flex flex-col items-center gap-1">
+    <Link href="/marketplace" key="plus-button" className="flex flex-col items-center gap-1">
         <div className="w-16 h-16 bg-gradient-to-r from-primary to-green-400 rounded-full flex items-center justify-center -mt-8 shadow-lg shadow-primary/30 cursor-pointer">
             <Plus size={32} className="text-primary-foreground" />
         </div>
-    </div>
+    </Link>
   );
 
 
