@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -24,7 +23,7 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
     setSummary("");
     setError("");
 
-    const reportText = report?.['en']; // Always use the English report for the AI
+    const reportText = report?.['en'];
 
     if (!reportText) {
       setError("Compliance report is not available for this project.");
