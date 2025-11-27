@@ -1,11 +1,9 @@
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { translations } from "@/lib/translations";
 import { IslamicPattern } from "@/components/islamic-pattern";
+import { NewProjectForm } from "@/components/new-project-form";
+
 
 export default function NewProjectPage() {
-  const lang = "en"; 
-  const text = translations[lang];
 
   return (
     <div>
@@ -17,17 +15,7 @@ export default function NewProjectPage() {
         </header>
 
         <div className="p-4 md:p-6">
-            <Card>
-                <CardHeader>
-                    <CardTitle className="font-headline">Propose an Investment Opportunity</CardTitle>
-                    <CardDescription>This feature is coming soon. You'll be able to submit your own project for funding consideration here.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="flex items-center justify-center text-center p-10 bg-muted rounded-lg">
-                        <p className="text-muted-foreground">Coming Soon</p>
-                    </div>
-                </CardContent>
-            </Card>
+            <NewProjectForm />
         </div>
     </div>
   );
