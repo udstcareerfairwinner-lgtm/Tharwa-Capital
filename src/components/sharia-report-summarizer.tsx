@@ -20,6 +20,7 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
   const [error, setError] = useState("");
 
   const handleSummarize = async () => {
+    // Determine which report text to use. Prioritize current language, fallback to 'en'.
     const reportText = report?.[language] || report?.['en'];
 
     if (!reportText) {
@@ -37,6 +38,8 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
         setError(result.error);
       } else if (result.summary) {
         setSummary(result.summary);
+      } else {
+        setError("Failed to get a summary.");
       }
     } catch (e) {
       setError("An unexpected error occurred while generating the summary.");
@@ -46,16 +49,14 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
     }
   };
 
-  const hasReport = report && Object.values(report).some(r => r);
+  const hasReport = report && Object.values(report).some(r => r && r.length > 0);
+  const reportTextForDisplay = report?.[language] || report?.['en'];
 
   if (!hasReport) {
     return (
         <p className="text-muted-foreground italic">No detailed compliance report available for this project.</p>
     );
   }
-
-  // Show the report for the current language if it exists
-  const reportTextForDisplay = report?.[language];
 
   return (
     <div className="space-y-4">
