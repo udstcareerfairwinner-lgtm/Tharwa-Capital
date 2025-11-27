@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -11,7 +12,6 @@ import { translations } from "@/lib/translations";
 import { Users, Award, ChevronRight, Shield } from "lucide-react";
 import { IslamicPattern } from "@/components/islamic-pattern";
 import { shariaBoard } from "@/lib/data";
-import { Button } from "@/components/ui/button";
 
 export default function CommunityPage() {
   const lang = "en"; // Defaulting to English for this server component
@@ -81,9 +81,6 @@ export default function CommunityPage() {
                 </div>
               </Link>
             ))}
-             <Button className="w-full mt-4" variant="outline">
-                {text.learnMore}
-            </Button>
           </CardContent>
         </Card>
 
