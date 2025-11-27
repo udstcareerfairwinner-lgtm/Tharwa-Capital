@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -22,6 +23,7 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
     setSummary("");
     setError("");
     setIsLoading(true);
+
     try {
       const reportText = report?.[language] || report?.['en'];
 
@@ -31,6 +33,7 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
       }
 
       const result = await summarizeReportAction({ reportText });
+
       if (result.error) {
         setError(result.error);
       } else if (result.summary) {
