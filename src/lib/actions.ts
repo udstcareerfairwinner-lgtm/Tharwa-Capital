@@ -28,12 +28,12 @@ export async function filterInvestmentsAction(
 
 export async function summarizeReportAction(
   input: SummarizeShariaComplianceReportInput
-): Promise<string> {
+): Promise<{ summary?: string; error?: string }> {
   try {
     const result = await summarizeShariaComplianceReport(input);
-    return result.summary;
+    return { summary: result.summary };
   } catch (error) {
     console.error('Error summarizing report:', error);
-    return 'Error: Could not generate summary.';
+    return { error: 'Could not generate summary.' };
   }
 }
