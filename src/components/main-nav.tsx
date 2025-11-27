@@ -42,7 +42,7 @@ export function MainNav() {
   const navLinks = navItems.map(item => <NavLink key={item.href} {...item} />);
   // Insert placeholder for the Plus button
   navLinks.splice(2, 0, 
-    <Link href="/marketplace" key="plus-button" className="flex flex-col items-center gap-1">
+    <Link href="/new-project" key="plus-button" className="flex flex-col items-center gap-1">
         <div className="w-16 h-16 bg-gradient-to-r from-primary to-green-400 rounded-full flex items-center justify-center -mt-8 shadow-lg shadow-primary/30 cursor-pointer">
             <Plus size={32} className="text-primary-foreground" />
         </div>
