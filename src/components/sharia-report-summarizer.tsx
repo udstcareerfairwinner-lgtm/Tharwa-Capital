@@ -48,8 +48,8 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
       setIsLoading(false);
     }
   };
-  
-  const hasReport = report && Object.values(report).some(r => r && r.length > 0);
+
+  const hasReport = report && report['en'] && report['en'].length > 0;
   const reportTextForDisplay = report?.[language] || report?.['en'];
 
   return (
@@ -58,42 +58,42 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
         <p className="text-muted-foreground italic">No detailed compliance report available for this project.</p>
        ) : (
         <>
-            {reportTextForDisplay && (
-                <Card className="bg-background/50">
-                <CardHeader>
-                    <CardTitle className="text-base flex items-center gap-2">
-                    <FileText size={16} />
-                    Full Report
-                    </CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p className="text-muted-foreground text-sm whitespace-pre-wrap">
-                    {reportTextForDisplay}
-                    </p>
-                </CardContent>
-                </Card>
-            )}
+          {reportTextForDisplay && (
+            <Card className="bg-background/50">
+              <CardHeader>
+                <CardTitle className="text-base flex items-center gap-2">
+                  <FileText size={16} />
+                  Full Report
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-sm whitespace-pre-wrap">
+                  {reportTextForDisplay}
+                </p>
+              </CardContent>
+            </Card>
+          )}
 
-            <Button onClick={handleSummarize} disabled={isLoading} className="w-full gap-2">
-                <Sparkles size={16} />
-                {isLoading ? text.generatingSummary : text.summarizeWithAI}
-            </Button>
+          <Button onClick={handleSummarize} disabled={isLoading} className="w-full gap-2">
+            <Sparkles size={16} />
+            {isLoading ? text.generatingSummary : text.summarizeWithAI}
+          </Button>
         </>
-       )}
+      )}
 
       {isLoading && (
         <Card>
-            <CardHeader>
-                <CardTitle className="text-base flex items-center gap-2 font-headline">
-                    <Sparkles size={16} className="text-accent animate-pulse"/>
-                    {text.summary}
-                </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
-                <Skeleton className="h-4 w-full" />
-                <Skeleton className="h-4 w-full" />
-                <Skeleton className="h-4 w-3/4" />
-            </CardContent>
+          <CardHeader>
+            <CardTitle className="text-base flex items-center gap-2 font-headline">
+              <Sparkles size={16} className="text-accent animate-pulse" />
+              {text.summary}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-3/4" />
+          </CardContent>
         </Card>
       )}
 
@@ -101,10 +101,10 @@ export function ShariaReportSummarizer({ report }: ShariaReportSummarizerProps) 
         <Card className="border-accent">
           <CardHeader>
             <CardTitle className="text-base flex items-center gap-2 font-headline">
-                <Sparkles size={16} className="text-accent"/>
-                {text.summary}
+              <Sparkles size={16} className="text-accent" />
+              {text.summary}
             </CardTitle>
-          </Header>
+          </CardHeader>
           <CardContent>
             <p className="text-sm whitespace-pre-wrap">{summary}</p>
           </CardContent>
