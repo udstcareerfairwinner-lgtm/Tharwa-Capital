@@ -1,3 +1,4 @@
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -8,17 +9,16 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import { translations } from "@/lib/translations";
+import { useLanguage } from "@/hooks/use-language";
 import { Users, Award, ChevronRight, Shield } from "lucide-react";
 import { IslamicPattern } from "@/components/islamic-pattern";
 import { shariaBoard } from "@/lib/data";
 
 export default function CommunityPage() {
-  const lang = "en"; // Defaulting to English for this server component
-  const text = translations[lang];
+  const { language, translations: text, isRTL } = useLanguage();
 
   return (
-    <div>
+    <div dir={isRTL ? "rtl" : "ltr"}>
       <header className="bg-gradient-to-br from-primary to-green-600 text-primary-foreground p-6 relative overflow-hidden">
         <IslamicPattern className="opacity-10" />
         <div className="relative z-10">
@@ -67,15 +67,15 @@ export default function CommunityPage() {
                 <div className="flex items-center gap-3 p-3 bg-background rounded-lg border hover:bg-muted/50 transition-colors cursor-pointer">
                   <Image
                     src={member.image}
-                    alt={member.name[lang]}
+                    alt={member.name[language]}
                     width={48}
                     height={48}
                     className="rounded-full"
                     data-ai-hint={member.imageHint}
                   />
                   <div className="flex-1">
-                    <h3 className="font-semibold text-foreground">{member.name[lang]}</h3>
-                    <p className="text-sm text-muted-foreground">{member.role[lang]}</p>
+                    <h3 className="font-semibold text-foreground">{member.name[language]}</h3>
+                    <p className="text-sm text-muted-foreground">{member.role[language]}</p>
                   </div>
                   <ChevronRight className="h-5 w-5 text-muted-foreground" />
                 </div>

@@ -1,10 +1,12 @@
+"use client";
+
 import { IslamicPattern } from "@/components/islamic-pattern";
 import { LanguageToggle } from "@/components/language-toggle";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Bell, ChevronRight, Shield, TrendingUp, Users } from "lucide-react";
-import { translations } from "@/lib/translations";
+import { useLanguage } from "@/hooks/use-language";
 import { investments } from "@/lib/data";
 import { InvestmentCard } from "@/components/investment-card";
 import Image from "next/image";
@@ -12,14 +14,13 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 import Link from 'next/link';
 
 export default function DashboardPage() {
-  const lang = "en"; // Defaulting to English for this server component
-  const text = translations[lang];
+  const { translations: text, isRTL } = useLanguage();
 
   const userAvatar =
     PlaceHolderImages.find((img) => img.id === "user-avatar")?.imageUrl || "";
 
   return (
-    <div className="bg-background">
+    <div className="bg-background" dir={isRTL ? "rtl" : "ltr"}>
       <header className="bg-gradient-to-br from-primary via-emerald-600 to-green-600 text-primary-foreground p-6 relative overflow-hidden shadow-lg">
         <IslamicPattern className="opacity-10" />
         <div className="relative z-10">

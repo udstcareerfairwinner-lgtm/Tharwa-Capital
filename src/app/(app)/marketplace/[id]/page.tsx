@@ -1,5 +1,7 @@
+"use client";
+
 import { investments } from "@/lib/data";
-import { translations } from "@/lib/translations";
+import { useLanguage } from "@/hooks/use-language";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import {
@@ -30,33 +32,32 @@ type Props = {
 };
 
 export default function InvestmentDetailPage({ params }: Props) {
+  const { language, translations: text, isRTL } = useLanguage();
   const investment = investments.find((inv) => inv.id.toString() === params.id);
   
   if (!investment) {
     notFound();
   }
 
-  const lang = "en"; // Defaulting to English for this server component
-  const text = translations[lang];
   const progress = (investment.invested / investment.goal) * 100;
   const imageHint = PlaceHolderImages.find(img => img.imageUrl === investment.image)?.imageHint || 'investment opportunity';
 
 
   return (
-    <div className="bg-background">
+    <div className="bg-background" dir={isRTL ? "rtl" : "ltr"}>
       <div className="relative h-60">
         <Image
           src={investment.image}
-          alt={investment.title[lang]}
+          alt={investment.title[language]}
           fill
           className="object-cover"
           data-ai-hint={imageHint}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
         <div className="absolute bottom-0 left-0 p-6">
-            <Badge className="bg-background text-foreground mb-2">{investment.category[lang]}</Badge>
+            <Badge className="bg-background text-foreground mb-2">{investment.category[language]}</Badge>
             <h1 className="text-3xl font-bold font-headline text-white shadow-lg">
-                {investment.title[lang]}
+                {investment.title[language]}
             </h1>
         </div>
       </div>

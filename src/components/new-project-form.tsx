@@ -1,4 +1,3 @@
-
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -76,8 +75,8 @@ export function NewProjectForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="font-headline">Propose an Investment Opportunity</CardTitle>
-        <CardDescription>Fill out the details below to submit your project for review by our team and Sharia board.</CardDescription>
+        <CardTitle className="font-headline">{text.proposeInvestmentOpportunity}</CardTitle>
+        <CardDescription>{text.proposeInvestmentOpportunityDesc}</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -87,9 +86,9 @@ export function NewProjectForm() {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Project Title</FormLabel>
+                  <FormLabel>{text.projectTitle}</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g., Eco-Friendly Packaging Solutions" {...field} />
+                    <Input placeholder={text.projectTitleExample} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -102,11 +101,11 @@ export function NewProjectForm() {
                 name="category"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>Category</FormLabel>
+                    <FormLabel>{text.category}</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                         <SelectTrigger>
-                            <SelectValue placeholder="Select a project category" />
+                            <SelectValue placeholder={text.selectCategory} />
                         </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -125,7 +124,7 @@ export function NewProjectForm() {
                 name="fundingGoal"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>Funding Goal (QAR)</FormLabel>
+                    <FormLabel>{text.fundingGoalQAR}</FormLabel>
                     <FormControl>
                         <Input type="number" placeholder="50000" {...field} />
                     </FormControl>
@@ -140,10 +139,10 @@ export function NewProjectForm() {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Project Description</FormLabel>
+                  <FormLabel>{text.projectDescription}</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Describe your project, its mission, and its potential impact."
+                      placeholder={text.projectDescriptionPlaceholder}
                       className="min-h-32"
                       {...field}
                     />
@@ -154,19 +153,19 @@ export function NewProjectForm() {
             />
 
             <FormItem>
-                <FormLabel>Project Image</FormLabel>
+                <FormLabel>{text.projectImage}</FormLabel>
                 <FormControl>
                     <Button variant="outline" className="w-full justify-start font-normal text-muted-foreground" type="button">
                         <Upload className="mr-2" />
-                        Upload an image (simulation)
+                        {text.projectImageUpload}
                     </Button>
                 </FormControl>
                 <FormDescription>
-                    Upload a high-quality image that represents your project.
+                    {text.projectImageDesc}
                 </FormDescription>
             </FormItem>
 
-            <Button type="submit" size="lg" className="w-full">Submit for Review</Button>
+            <Button type="submit" size="lg" className="w-full">{text.submitForReview}</Button>
           </form>
         </Form>
       </CardContent>

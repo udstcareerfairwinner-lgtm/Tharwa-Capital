@@ -1,17 +1,18 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { translations } from "@/lib/translations";
+import { useLanguage } from "@/hooks/use-language";
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { IslamicPattern } from "@/components/islamic-pattern";
 import { Button } from "@/components/ui/button";
-import { BarChart, Briefcase, ChevronRight, LogOut, Bell, UserCog } from "lucide-react";
+import { Briefcase, ChevronRight, LogOut, Bell, UserCog } from "lucide-react";
 import { investments } from "@/lib/data";
 import Link from 'next/link';
 import { Progress } from "@/components/ui/progress";
 
 export default function ProfilePage() {
-  const lang = "en"; // Defaulting to English for this server component
-  const text = translations[lang];
+  const { language, translations: text, isRTL } = useLanguage();
 
   const user = {
     name: "Abdullah Al-Farsi",
@@ -28,7 +29,7 @@ export default function ProfilePage() {
   const userInvestments = investments.slice(0, 3); // Dummy data
 
   return (
-    <div>
+    <div dir={isRTL ? "rtl" : "ltr"}>
       <header className="bg-gradient-to-br from-primary via-emerald-600 to-green-600 text-primary-foreground p-6 relative overflow-hidden shadow-lg">
         <IslamicPattern className="opacity-10" />
         <div className="relative z-10 flex items-center gap-4">
@@ -69,21 +70,21 @@ export default function ProfilePage() {
         <Card>
             <CardHeader>
                 <CardTitle className="font-headline flex items-center gap-2">
-                    <Briefcase size={20} /> My Investments ({user.stats.projectsBacked})
+                    <Briefcase size={20} /> {text.myInvestments.replace('{count}', user.stats.projectsBacked.toString())}
                 </CardTitle>
-                <CardDescription>Projects you have invested in.</CardDescription>
+                <CardDescription>{text.myInvestmentsDesc}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
                 {userInvestments.map(investment => (
                     <Link href={`/marketplace/${investment.id}`} key={investment.id}>
                         <div className="p-3 rounded-lg border bg-background hover:bg-muted/50 flex items-center gap-4 transition-colors">
-                            <Image src={investment.image} alt={investment.title[lang]} width={64} height={64} className="rounded-md object-cover h-16 w-16" />
+                            <Image src={investment.image} alt={investment.title[language]} width={64} height={64} className="rounded-md object-cover h-16 w-16" />
                             <div className="flex-1">
-                                <h3 className="font-semibold text-foreground truncate">{investment.title[lang]}</h3>
-                                <p className="text-sm text-muted-foreground">{investment.category[lang]}</p>
+                                <h3 className="font-semibold text-foreground truncate">{investment.title[language]}</h3>
+                                <p className="text-sm text-muted-foreground">{investment.category[language]}</p>
                                 <div className="mt-1 flex items-center gap-2 text-xs">
                                     <Progress value={(investment.invested/investment.goal)*100} className="h-1.5 w-20"/>
-                                    <span className="text-muted-foreground">{((investment.invested/investment.goal)*100).toFixed(0)}% Funded</span>
+                                    <span className="text-muted-foreground">{((investment.invested/investment.goal)*100).toFixed(0)}% {text.funded}</span>
                                 </div>
                             </div>
                              <ChevronRight className="h-5 w-5 text-muted-foreground" />
@@ -95,21 +96,21 @@ export default function ProfilePage() {
         
         <Card>
             <CardHeader>
-                <CardTitle className="font-headline">Account Settings</CardTitle>
+                <CardTitle className="font-headline">{text.accountSettings}</CardTitle>
             </CardHeader>
             <CardContent>
                 <div className="flex flex-col space-y-1">
                     <Button variant="ghost" className="justify-start -ml-4" asChild>
                         <Link href="/profile/edit">
-                            <UserCog className="mr-2"/> Edit Profile
+                            <UserCog className="mr-2"/> {text.editProfile}
                         </Link>
                     </Button>
                     <Button variant="ghost" className="justify-start -ml-4" asChild>
                        <Link href="/profile/notifications">
-                            <Bell className="mr-2"/> Notification Settings
+                            <Bell className="mr-2"/> {text.notificationSettings}
                         </Link>
                     </Button>
-                    <Button variant="ghost" className="justify-start text-destructive hover:text-destructive -ml-4"><LogOut className="mr-2"/> Log Out</Button>
+                    <Button variant="ghost" className="justify-start text-destructive hover:text-destructive -ml-4"><LogOut className="mr-2"/> {text.logOut}</Button>
                 </div>
             </CardContent>
         </Card>
