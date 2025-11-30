@@ -1,9 +1,10 @@
+
 "use client";
 
 import { investments } from "@/lib/data";
 import { useLanguage } from "@/hooks/use-language";
 import Image from "next/image";
-import { notFound } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -27,11 +28,8 @@ import { ShariaReportSummarizer } from "@/components/sharia-report-summarizer";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { InvestmentConfirmation } from "@/components/investment-confirmation";
 
-type Props = {
-  params: { id: string };
-};
-
-export default function InvestmentDetailPage({ params }: Props) {
+export default function InvestmentDetailPage() {
+  const params = useParams();
   const { language, translations: text, isRTL } = useLanguage();
   const investment = investments.find((inv) => inv.id.toString() === params.id);
   

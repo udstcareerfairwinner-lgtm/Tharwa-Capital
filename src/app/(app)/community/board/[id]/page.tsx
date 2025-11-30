@@ -1,18 +1,16 @@
+
 "use client";
 
 import { shariaBoard } from "@/lib/data";
 import { useLanguage } from "@/hooks/use-language";
 import Image from "next/image";
-import { notFound } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import { IslamicPattern } from "@/components/islamic-pattern";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-type Props = {
-  params: { id: string };
-};
-
-export default function ShariaBoardMemberPage({ params }: Props) {
+export default function ShariaBoardMemberPage() {
+  const params = useParams();
   const { language, translations: text, isRTL } = useLanguage();
   const member = shariaBoard.find((m) => m.id === params.id);
   
