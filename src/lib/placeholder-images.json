@@ -51,8 +51,8 @@
     {
       "id": "user-avatar",
       "description": "Avatar for the logged-in user.",
-      "imageUrl": "https://images.unsplash.com/photo-1554727242-741c14fa561c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwZXJzb24lMjBzbWlsaW5nfGVufDB8fHx8MTc2Mjg0NjIxMHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "person smiling"
+      "imageUrl": "https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtYW4lMjBzbWlsaW5nfGVufDB8fHx8MTc2MzEzMzE3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "man smiling"
     }
   ]
 }
